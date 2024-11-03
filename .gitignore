@@ -22,3 +22,5 @@ package.json
 /.idea
 /.vscode
 /.zed
+composer.json
+composer.lock

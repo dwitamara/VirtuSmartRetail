@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
+use Illuminate\Support\Str;
 
 class KaryawansTableSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class KaryawansTableSeeder extends Seeder
                 'password' => Hash::make('password123'),
                 'email' => $faker->unique()->safeEmail,
                 'id_role' => $faker->randomElement($roles),
+                'remember_token' => Str::random(10),
                 'status' => $faker->randomElement(['aktif', 'nonaktif']),
                 'created_at' => now(),
                 'updated_at' => now(),

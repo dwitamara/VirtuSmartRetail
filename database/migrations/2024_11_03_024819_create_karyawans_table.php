@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('username', 50)->unique();
             $table->string('password', 255);
             $table->string('email', 100)->unique();
+            $table->rememberToken();
             $table->foreignId('id_role')->constrained('role', 'id_role');
             $table->enum('status', ['aktif', 'nonaktif']);
             $table->timestamps();
