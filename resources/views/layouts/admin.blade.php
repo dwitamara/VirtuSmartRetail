@@ -58,7 +58,6 @@
                         <h6 class="collapse-header">Menu SDM:</h6>
                         <a class="collapse-item" href="buttons.html">Data Karyawan</a>
                         <a class="collapse-item" href="cards.html">Manajemen Absensi</a>
-                        <a class="collapse-item" href="cards.html">Penggajian</a>
                         <a class="collapse-item" href="cards.html">Manajemen Shift</a>
                     </div>
                 </div>
@@ -95,6 +94,7 @@
                         <h6 class="collapse-header">Keuangan:</h6>
                         <a class="collapse-item" href="utilities-color.html">Buku Besar</a>
                         <a class="collapse-item" href="utilities-border.html">Hutang</a>
+                        <a class="collapse-item" href="cards.html">Penggajian</a>
                         <a class="collapse-item" href="utilities-animation.html">Jurnal</a>
                         <a class="collapse-item" href="utilities-other.html">Laporan Keuangan</a>
                     </div>
