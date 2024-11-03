@@ -17,6 +17,7 @@ class RolesTableSeeder extends Seeder
             ['role_name' => 'Inventaris', 'description' => 'Inventory Management'],
             ['role_name' => 'Admin', 'description' => 'Administrator role'],
             ['role_name' => 'Keuangan', 'description' => 'Finance Department'],
+            ['role_name' => 'Penjualan', 'description' => 'Sale Department'],
         ]);
     }
 }
