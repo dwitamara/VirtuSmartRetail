@@ -57,11 +57,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Admin Options:</h6>
                         <a class="collapse-item" href="admin-users.html">Absen</a>
-                        <a class="collapse-item" href="admin-settings.html">Ganti Password</a>
+                        <a class="collapse-item" href="{{ route('ganti-password') }}">Ganti Password</a>
                     </div>
                 </div>
             </li>
-            @if($role->id_role == 1 || $role->id_role == 3)
+            @if(session('user_role')->id_role == 1 || session('user_role')->id_role == 3)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="false" aria-controls="collapseTwo">
@@ -80,7 +80,7 @@
             @endif
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            @if($role->id_role == 2 || $role->id_role == 3)
+            @if(session('user_role')->id_role == 2 || session('user_role')->id_role == 3)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -101,7 +101,7 @@
             </li>
             @endif
 
-            @if($role->id_role == 4 || $role->id_role == 3)
+            @if(session('user_role')->id_role == 4 || session('user_role')->id_role == 3)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKeuangan"
                     aria-expanded="true" aria-controls="collapseKeuangan">
@@ -124,7 +124,7 @@
             @endif
 
             <!-- Nav Item - Pages Collapse Menu -->
-            @if($role->id_role == 5 || $role->id_role == 3)
+            @if(session('user_role')->id_role == 5 || session('user_role')->id_role == 3)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -151,7 +151,7 @@
             </div>
 
         </ul>
-        <div id="content">
+        <div id="content" style="width: 100%">
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -218,7 +218,7 @@
                         </div>
                     </li>
 
-                    
+
                     <div class="topbar-divider d-none d-sm-block"></div>
 
                     <!-- Nav Item - User Information -->
@@ -256,8 +256,16 @@
     <!-- Load other JS files -->
     @vite([
         'resources/js/sb-admin-2.min.js',
-        'resources/js/demo/chart-area-demo.js',
-        'resources/js/demo/chart-pie-demo.js',
+        // 'resources/js/demo/chart-area-demo.js',
+        // 'resources/js/demo/chart-pie-demo.js',
+        // 'resources/chart.js/chart-pie-demo.js',
+        // 'resources/chart.js/chart-area-demo.js',
+        // 'resources/chart.js/chart-bar-demo.js',
+        // 'resources/chart.js/Chart.bundle.js',
+        // 'resources/chart.js/Chart.bundle.min.js',
+        // 'resources/chart.js/Chart.min.js',
+        // 'resources/chart.js/Chart.js',
+        // 'resources/chart.js/datatables-demo.js',
         // 'resources/js/app.js'
     ])
 </body>

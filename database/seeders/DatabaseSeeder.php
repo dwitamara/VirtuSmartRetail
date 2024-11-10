@@ -23,6 +23,7 @@ use Database\Seeders\PengembalianBarangKeSuppliersTableSeeder;
 use Database\Seeders\AkunsTableSeeder;
 use Database\Seeders\JurnalsTableSeeder;
 use Database\Seeders\HutangsTableSeeder;
+use Database\Seeders\JadwalSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -61,6 +62,7 @@ class DatabaseSeeder extends Seeder
             AkunsTableSeeder::class,
             JurnalsTableSeeder::class,
             HutangsTableSeeder::class,
+            JadwalSeeder::class,
         ]);
     }
 }

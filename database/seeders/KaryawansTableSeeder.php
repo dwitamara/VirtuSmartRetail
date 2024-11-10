@@ -12,14 +12,12 @@ class KaryawansTableSeeder extends Seeder
     {
         $faker = Faker::create();
         $roles = DB::table('role')->pluck('id_role')->toArray();
-        $shifts = DB::table('shifts')->pluck('id_shift')->toArray();
 
         foreach (range(1, 20) as $index) {
             DB::table('karyawan')->insert([
                 'nama' => $faker->name,
                 'posisi' => $faker->jobTitle,
                 'gaji_pokok' => $faker->numberBetween(3000000, 9000000),
-                'id_shift' => $faker->randomElement($shifts),
                 'username' => $faker->unique()->userName,
                 'password' => Hash::make('password123'),
                 'email' => $faker->unique()->safeEmail,

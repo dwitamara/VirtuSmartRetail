@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nama');
             $table->string('posisi');
             $table->decimal('gaji_pokok', 10, 2);
-            $table->foreignId('id_shift')->constrained('shifts', 'id_shift');
             $table->string('username', 50)->unique();
             $table->string('password', 255);
             $table->string('email', 100)->unique();
