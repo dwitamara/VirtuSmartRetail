@@ -13,4 +13,5 @@ class DashboardController extends Controller
         $role = Role::where('id_role', Auth::user()->id_role)->first();
         return view('dashboard', ['role' => $role]);
     }
+
 }

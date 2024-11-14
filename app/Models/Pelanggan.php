@@ -9,7 +9,7 @@ class Pelanggan extends Model
 {
     use HasFactory;
 
-    protected $table = 'pelanggans';
+    protected $table = 'pelanggan';
     protected $primaryKey = 'id_pelanggan';
     protected $fillable = ['nama_pelanggan', 'kontak', 'alamat'];
 }

@@ -88,7 +88,7 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    <div  class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Pending Requests</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                 </div>
@@ -347,7 +347,7 @@
                     <div class="modal-body">Jika yakin keluar maka klik logout.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <a class="btn btn-primary" href="login">Logout</a>
                     </div>
                 </div>
             </div>
