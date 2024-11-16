@@ -92,7 +92,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Manajemen Inventori:</h6>
                         <a class="collapse-item" href="utilities-color.html">Daftar Produk</a>
-                        <a class="collapse-item" href="utilities-border.html">Stokopname</a>
+                        <a class="collapse-item" href="{{ route('stokopnames.create') }}">Stokopname</a>
                         <a class="collapse-item" href="utilities-animation.html">Penerimaan Barang</a>
                         <a class="collapse-item" href="utilities-animation.html">Purchase Order (PO)</a>
                         <a class="collapse-item" href="utilities-other.html">Retur Barang</a>

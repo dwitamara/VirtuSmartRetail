@@ -9,7 +9,12 @@ class StokOpname extends Model
 {
     use HasFactory;
 
-    protected $table = 'stokopnames';
+    protected $table = 'stokopname';
     protected $primaryKey = 'id_stokopname';
     protected $fillable = ['id_produk', 'tanggal_opname', 'jumlah_sebenarnya', 'selisih'];
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk', 'id_produk');
+    }
 }
