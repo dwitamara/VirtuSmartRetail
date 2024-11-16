@@ -112,6 +112,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Keuangan:</h6>
+                        <a class="collapse-item" href="{{ route('akuns.index') }}">Akun</a>
                         <a class="collapse-item" href="utilities-color.html">Buku Besar</a>
                         <a class="collapse-item" href="utilities-border.html">Hutang</a>
                         <a class="collapse-item" href="utilities-border.html">Pembayaran</a>
