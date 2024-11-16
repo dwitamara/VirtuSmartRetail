@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\StokOpnameController;
+use App\Http\Controllers\ProdukController;
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('forgot-password/change-password', [ForgotPasswordController::class, 'changePassword'])->name("ubah-password");
     Route::resource('akuns', AkunController::class);
     Route::resource('stokopnames', StokOpnameController::class);
-
+    Route::resource('produks', ProdukController::class);
 
     // Add more routes that require authentication here
 });

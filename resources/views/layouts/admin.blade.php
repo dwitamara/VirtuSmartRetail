@@ -22,8 +22,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="{{ asset('img/virtusmart.png') }}" alt="Retail" width="100%" class="img-fluid">
                 </div>
                 <div class="sidebar-brand-text mx-3">Virtus Mart Retail</sup></div>
             </a>
@@ -91,7 +91,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Manajemen Inventori:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Daftar Produk</a>
+                        <a class="collapse-item" href="{{ route('produks.index') }}">Daftar Produk</a>
                         <a class="collapse-item" href="{{ route('stokopnames.create') }}">Stokopname</a>
                         <a class="collapse-item" href="utilities-animation.html">Penerimaan Barang</a>
                         <a class="collapse-item" href="utilities-animation.html">Purchase Order (PO)</a>
