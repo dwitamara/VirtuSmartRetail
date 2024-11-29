@@ -22,8 +22,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="{{ asset('img/virtusmart.png') }}" alt="Retail" width="100%" class="img-fluid">
                 </div>
                 <div class="sidebar-brand-text mx-3">Virtus Mart Retail</sup></div>
             </a>
@@ -91,8 +91,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Manajemen Inventori:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Daftar Produk</a>
-                        <a class="collapse-item" href="utilities-border.html">Stokopname</a>
+                        <a class="collapse-item" href="{{ route('produks.index') }}">Daftar Produk</a>
+                        <a class="collapse-item" href="{{ route('stokopnames.create') }}">Stokopname</a>
                         <a class="collapse-item" href="utilities-animation.html">Penerimaan Barang</a>
                         <a class="collapse-item" href="utilities-animation.html">Purchase Order (PO)</a>
                         <a class="collapse-item" href="utilities-other.html">Retur Barang</a>
@@ -112,6 +112,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Keuangan:</h6>
+                        <a class="collapse-item" href="{{ route('akuns.index') }}">Akun</a>
                         <a class="collapse-item" href="utilities-color.html">Buku Besar</a>
                         <a class="collapse-item" href="utilities-border.html">Hutang</a>
                         <a class="collapse-item" href="utilities-border.html">Pembayaran</a>
@@ -242,6 +243,24 @@
                 </ul>
 
             </nav>
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Anda yakin untuk keluar</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Jika yakin keluar maka klik logout.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="{{ route('login') }}">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @yield('content')
         </div>
     </div>

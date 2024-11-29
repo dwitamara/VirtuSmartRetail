@@ -9,7 +9,7 @@ class Akun extends Model
 {
     use HasFactory;
 
-    protected $table = 'akuns';
+    protected $table = 'akun';
     protected $primaryKey = 'id_akun';
     protected $fillable = ['nama_akun', 'tipe'];
 }
