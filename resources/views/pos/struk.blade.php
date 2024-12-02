@@ -15,25 +15,29 @@
                 <tr>
                     <th>Nama Produk</th>
                     <th>Jumlah</th>
-                    <th>Harga</th>
+                    <th>Harga Satuan</th>
                     <th>Subtotal</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($transaksi->detailPenjualan as $detail)
-                <tr>
-                    <td>{{ $detail->produk->nama_produk }}</td>
-                    <td>{{ $detail->jumlah }}</td>
-                    <td>Rp {{ number_format($detail->produk->harga_jual, 0, ',', '.') }}</td>
-                    <td>Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $detail->produk->nama_produk ?? 'Produk Tidak Diketahui' }}</td>
+                        <td>{{ $detail->jumlah }}</td>
+                        <td>Rp {{ number_format($detail->harga_satuan, 0, ',', '.') }}</td>
+                        <!-- Hitung subtotal sebagai jumlah * harga_satuan -->
+                        <td>Rp {{ number_format($detail->jumlah * $detail->harga_satuan, 0, ',', '.') }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
 
         <hr>
         <div class="text-right">
-            <h4>Total Harga: Rp {{ number_format($transaksi->detailPenjualan->sum('subtotal'), 0, ',', '.') }}</h4>
+            <!-- Hitung total harga dengan menjumlahkan subtotal setiap item -->
+            <h4>Total Harga: Rp {{ number_format($transaksi->detailPenjualan->sum(function($detail) {
+                return $detail->jumlah * $detail->harga_satuan;
+            }), 0, ',', '.') }}</h4>
         </div>
     </div>
 </div>

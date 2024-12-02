@@ -10,6 +10,8 @@ use App\Models\Pelanggan;
 class TransaksiPenjualan extends Model
 {
     use HasFactory;
+    
+
 
     protected $table = 'transaksi_penjualan';
     protected $primaryKey = 'id_penjualan';

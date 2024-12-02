@@ -40,29 +40,33 @@
                             <span>Tanggal tidak tersedia</span>
                         @endif
                     </td>
-                    <td>{{ $trx->pelanggan ? $trx->pelanggan->nama_pelanggan : 'Tanpa Pelanggan' }}</td>
+                    <td>{{ $trx->pelanggan ? $trx->pelanggan->nama_pelanggan : 'Bukan Member' }}</td>
                     <td>
-                        <ul>
-                            @foreach($trx->detailPenjualan as $detail)
-                                <li>{{ $detail->produk->nama_produk }} - {{ $detail->jumlah }} x Rp {{ number_format($detail->produk->harga_jual, 0, ',', '.') }} = Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</li>
-                            @endforeach
-                        </ul>
+                            <ul>
+                                @foreach($trx->detailPenjualan as $detail)
+                                    <li>
+                                        {{ $detail->produk->nama_produk }} - 
+                                        {{ $detail->jumlah }} x Rp {{ number_format($detail->produk->detailPenjualan->first()->harga_satuan, 0, ',', '.') }} = 
+                                        Rp {{ number_format($detail->jumlah * $detail->produk->detailPenjualan->first()->harga_satuan, 0, ',', '.') }}
+                                    </li>
+                                @endforeach
+                            </ul>
+
                     </td>
                     <td>
-                        <td>
-                            <!-- Tombol Edit -->
-                            <a href="{{ route('pos.edit', $trx->id_penjualan) }}" class="btn btn-warning btn-sm">Edit</a>
-                        
-                            <!-- Form Delete -->
-                            <form action="{{ route('pos.destroy', $trx->id_penjualan) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?')">Delete</button>
-                            </form>
-                        
-                            <!-- Tombol Cetak Struk -->
-                            <a href="{{ route('pos.struk', $trx->id_penjualan) }}" class="btn btn-info btn-sm" target="_blank">Cetak Struk</a>
-                        </td>                        
+                        <!-- Tombol Edit -->
+                        <a href="{{ route('pos.edit', $trx->id_penjualan) }}" class="btn btn-warning btn-sm">Edit</a>
+                    
+                        <!-- Form Delete -->
+                        <form action="{{ route('pos.destroy', $trx->id_penjualan) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?')">Delete</button>
+                        </form>
+                    
+                        <!-- Tombol Cetak Struk -->
+                        <a href="{{ route('pos.struk', $trx->id_penjualan) }}" class="btn btn-info btn-sm" target="_blank">Cetak Struk</a>
+                    </td>                        
                 </tr>
             @endforeach
         </tbody>

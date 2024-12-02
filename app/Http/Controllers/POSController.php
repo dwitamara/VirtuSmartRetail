@@ -7,8 +7,6 @@ use App\Models\TransaksiPenjualan;
 use App\Models\DetailPenjualan;
 use App\Models\Pelanggan;
 use DB;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Role;
 
 class POSController extends Controller
 {
@@ -17,20 +15,27 @@ class POSController extends Controller
      */
     public function index()
     {
-        $transaksi = TransaksiPenjualan::with('detailPenjualan.produk', 'pelanggan') // Memuat relasi detailPenjualan dan produk
-                                    ->latest() // Mengurutkan berdasarkan tanggal terbaru
-                                    ->get();
+        // Menampilkan transaksi yang baru saja dibuat
+        $transaksi = TransaksiPenjualan::with('detailPenjualan.produk', 'pelanggan')
+                                        ->latest() // Mengurutkan berdasarkan tanggal terbaru
+                                        ->take(10) // Misalnya menampilkan hanya 10 transaksi terbaru
+                                        ->get();
         
         return view('pos.index', compact('transaksi'));
     }
     
-
+    
     /**
      * Tampilkan form tambah transaksi
      */
     public function create()
     {
-        $produk = Produk::all(); // Ambil semua produk untuk dropdown
+        // Ambil produk dan pastikan mengambil harga satuan pada detail penjualan
+        $produk = Produk::with(['detailPenjualan' => function ($query) {
+            $query->select('id_produk', 'harga_satuan');
+        }])->get();
+        
+        // Ambil semua pelanggan
         $pelanggan = Pelanggan::all();
     
         return view('pos.create', compact('produk', 'pelanggan'));
@@ -41,35 +46,52 @@ class POSController extends Controller
      * Simpan transaksi
      */
     public function store(Request $request)
-{
-    // Validasi dan simpan data transaksi
-    $transaksi = TransaksiPenjualan::create([
-        'id_pelanggan' => $request->id_pelanggan,
-        'tanggal_transaksi' => now(), // Menyimpan tanggal transaksi saat ini
-    ]);
-
-    // Simpan detail transaksi (produk yang dibeli)
-    foreach ($request->produk as $produk) {
-        DetailPenjualan::create([
-            'id_penjualan' => $transaksi->id_penjualan,
-            'id_produk' => $produk['id'],
-            'jumlah' => $produk['jumlah'],
-            'subtotal' => $produk['subtotal'],
+    {
+        // Validasi input
+        $request->validate([
+            'id_produk' => 'required|exists:produk,id_produk', // Pastikan id_produk ada dalam tabel produk
+            'jumlah' => 'required|integer|min:1', // Jumlah minimal 1
+            'id_pelanggan' => 'nullable|exists:pelanggan,id_pelanggan', // Validasi id_pelanggan jika ada
         ]);
+
+        // Ambil produk yang dipilih
+        $produk = Produk::findOrFail($request->id_produk);
+
+        // Cek stok produk, pastikan stok cukup
+        if ($produk->stok < $request->jumlah) {
+            return back()->withErrors(['jumlah' => 'Stok produk tidak cukup']);
+        }
+
+        // Hitung subtotal berdasarkan jumlah
+        $harga_satuan = $produk->detailPenjualan->first()->harga_satuan; // Ambil harga satuan dari relasi
+        $subtotal = $harga_satuan * $request->jumlah;
+
+        // Simpan transaksi
+        $transaksi = new TransaksiPenjualan();
+        $transaksi->id_pelanggan = $request->id_pelanggan; // Jika ada pelanggan
+        $transaksi->total_harga = $subtotal; // Hitung total harga
+        $transaksi->save();
+
+        // Tambahkan detail transaksi
+        $transaksi->detailPenjualan()->create([
+            'id_produk' => $produk->id_produk,
+            'jumlah' => $request->jumlah,
+            'harga_satuan' => $harga_satuan, // Simpan harga satuan di detail_penjualan
+            'subtotal' => $subtotal,
+        ]);
+
+        // Kurangi stok produk setelah transaksi
+        $produk->decrement('stok', $request->jumlah);
+
+        return redirect()->route('pos.index')->with('success', 'Transaksi berhasil disimpan!');
     }
-
-    return redirect()->route('pos.index');
-}
-
-    
-     
 
     /**
      * Tampilkan hasil transaksi
      */
     public function result($id)
     {
-        $transaksi = TransaksiPenjualan::with('detail_penjualan.produk')->findOrFail($id);
+        $transaksi = TransaksiPenjualan::with('detailPenjualan.produk')->findOrFail($id);
         return view('pos.result', compact('transaksi'));
     }
 
@@ -78,7 +100,7 @@ class POSController extends Controller
      */
     public function cetakStruk($id)
     {
-        $transaksi = TransaksiPenjualan::with('detail_penjualan.produk')->findOrFail($id);
+        $transaksi = TransaksiPenjualan::with('detailPenjualan.produk')->findOrFail($id);
         return view('pos.struk', compact('transaksi'));
     }
 
@@ -92,12 +114,12 @@ class POSController extends Controller
             $transaksi = TransaksiPenjualan::findOrFail($id);
 
             // Kembalikan stok produk
-            foreach ($transaksi->detail_penjualan as $detail) {
+            foreach ($transaksi->detailPenjualan as $detail) {
                 $detail->produk->increment('stok', $detail->jumlah);
             }
 
             // Hapus detail dan transaksi
-            $transaksi->detail_penjualan()->delete();
+            $transaksi->detailPenjualan()->delete();
             $transaksi->delete();
 
             DB::commit();
