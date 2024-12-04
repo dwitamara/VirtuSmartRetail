@@ -12,4 +12,9 @@ class Shift extends Model
     protected $table = 'shifts';
     protected $primaryKey = 'id_shift';
     protected $fillable = ['nama_shift', 'jam_mulai', 'jam_selesai'];
+// Shift.php
+public function karyawan()
+{
+    return $this->hasMany(Karyawan::class, 'shift_id'); // pastikan kolom relasi 'shift_id' sesuai dengan kolom yang ada di tabel karyawan
+}
 }

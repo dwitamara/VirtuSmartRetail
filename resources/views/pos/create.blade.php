@@ -17,17 +17,18 @@
     <form action="{{ route('pos.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="id_produk" class="form-label">Pilih Produk</label>
             <select name="id_produk" id="id_produk" class="form-select" required>
                 <option value="">-- Pilih Produk --</option>
                 @foreach($produk as $item)
-                    <option value="{{ $item->id_produk }}" 
-                        data-harga="{{ $item->harga_jual }}" 
-                        data-stok="{{ $item->stok }}">
-                        {{ $item->nama_produk }} (Stok: {{ $item->stok }}, Harga: {{ number_format($item->harga_jual, 0, ',', '.') }})
-                    </option>
+                    @if($item->detailPenjualan->isNotEmpty()) {{-- Pastikan ada detailPenjualan --}}
+                        <option value="{{ $item->id_produk }}" 
+                            data-harga="{{ $item->detailPenjualan->first()->harga_satuan }}" 
+                            data-stok="{{ $item->stok }}">
+                            {{ $item->nama_produk }} (Stok: {{ $item->stok }}, Harga: {{ number_format($item->detailPenjualan->first()->harga_satuan, 0, ',', '.') }})
+                        </option>
+                    @endif
                 @endforeach
-            </select>
+            </select>            
         </div>
 
         <div class="mb-3">
@@ -49,7 +50,6 @@
                     <option value="{{ $p->id_pelanggan }}">{{ $p->nama_pelanggan }} ({{ $p->kontak }})</option>
                 @endforeach
             </select>
-            
         </div>
 
         <button type="submit" class="btn btn-success">Simpan Transaksi</button>

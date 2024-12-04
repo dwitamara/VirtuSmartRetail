@@ -1,4 +1,5 @@
 <!-- resources/views/pelanggan/edit.blade.php -->
+<!-- resources/views/pelanggan/index.blade.php -->
 @extends('layouts.admin')
 
 @section('content')

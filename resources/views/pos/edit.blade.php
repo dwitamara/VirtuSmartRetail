@@ -47,4 +47,21 @@
         <a href="{{ route('pos.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
+
+<script>
+    // Mengupdate subtotal ketika jumlah berubah
+    document.getElementById('jumlah').addEventListener('input', function() {
+        let produkSelect = document.getElementById('produk_id');
+        let harga = produkSelect.options[produkSelect.selectedIndex].dataset.harga;
+        let jumlah = this.value;
+        let subtotal = harga * jumlah;
+
+        // Update subtotal di form
+        document.getElementById('subtotal').value = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+        }).format(subtotal);
+    });
+</script>
+
 @endsection

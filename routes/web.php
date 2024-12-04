@@ -78,6 +78,7 @@ Route::get('/shift/{id}/edit', [ShiftController::class, 'edit'])->name('shift.ed
 Route::put('/shift/{id}/update', [ShiftController::class, 'update'])->name('shift.update');
 Route::delete('/shift/{shift}', [ShiftController::class, 'destroy'])->name('shift.destroy');
 
+Route::resource('pos', PosController::class);
 Route::get('/pos', [POSController::class, 'index'])->name('pos.index');
 Route::get('/pos/create', [POSController::class, 'create'])->name('pos.create');
 Route::get('/pos/{id}/edit', [POSController::class, 'edit'])->name('pos.edit');
